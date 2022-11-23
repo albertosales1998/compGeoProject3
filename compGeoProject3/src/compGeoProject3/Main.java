@@ -79,18 +79,43 @@ public class Main {
         sp[1].addVertex(p6);
         sp[1].addVertex(p7);  
         //Tower Mario
-        
+
+        //top border
         SimplePolygon topBorder = new SimplePolygon(
         		new Point[] {
         				new Point(20, 20),
         				new Point(778, 20),
         				new Point(778, 40),
         				new Point(20, 40)
-        				}
-        		);
-        
+                });
         System.out.println(topBorder.getVertexList()[0].toString());
-     
+
+        //left border
+        SimplePolygon leftBorder = new SimplePolygon(
+                new Point[] {
+                        new Point(20, 45),
+                        new Point(30, 45),
+                        new Point(30, 758),
+                        new Point(20, 758)
+                });
+
+        //bottom border
+        SimplePolygon bottomBorder = new SimplePolygon(
+                new Point[] {
+                        new Point(20, 763),
+                        new Point(778, 763),
+                        new Point(778, 777),
+                        new Point(20, 777)
+                });
+
+        //right border
+        SimplePolygon rightBorder = new SimplePolygon(
+                new Point[] {
+                        new Point(770, 45),
+                        new Point(778, 45),
+                        new Point(778, 758),
+                        new Point(770, 758)
+                });
         
         
         p = new Point(500, 601);

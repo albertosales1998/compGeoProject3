@@ -33,7 +33,7 @@ public class GraphDisplay extends JPanel implements MouseMotionListener, MouseLi
         
         try
         {
-            image = ImageIO.read(new File("C:\\Users\\asale038\\eclipse-workspace\\compGeoProject3\\src\\compGeoProject3\\Maze.png")); 
+            image = ImageIO.read(new File("/Users/albertosales/classes/compGeoProject3/compGeoProject3/src/compGeoProject3/Maze.png"));
         } 
         catch (IOException ex)
         {
