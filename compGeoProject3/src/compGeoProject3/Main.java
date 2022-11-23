@@ -69,7 +69,6 @@ public class Main {
         Point p5 = new Point(200, 429);
         Point p6 = new Point(50, 429);
         Point p7 = new Point(50, 543);
-        
         sp[1] = new SimplePolygon();
         sp[1].addVertex(p);
         sp[1].addVertex(p1);
@@ -80,6 +79,19 @@ public class Main {
         sp[1].addVertex(p6);
         sp[1].addVertex(p7);  
         //Tower Mario
+        
+        SimplePolygon topBorder = new SimplePolygon(
+        		new Point[] {
+        				new Point(20, 20),
+        				new Point(778, 20),
+        				new Point(778, 40),
+        				new Point(20, 40)
+        				}
+        		);
+        
+        System.out.println(topBorder.getVertexList()[0].toString());
+     
+        
         
         p = new Point(500, 601);
         p1 = new Point(500, 711);

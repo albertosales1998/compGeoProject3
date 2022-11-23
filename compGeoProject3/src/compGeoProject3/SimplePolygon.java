@@ -15,7 +15,11 @@ public class SimplePolygon extends GeometricObject{
     	size = 100;
         vertexList = new Point[size];
         vertNumber = 0; 
-        
+    }
+    
+    public SimplePolygon(Point[] vertices) {
+    	this.vertexList = vertices;
+    	this.size = vertices.length;
     }
     
     public Point getVertex(int i)
