@@ -7,6 +7,8 @@ import javax.swing.JFrame;
 
 public class Main {
 
+    private int dir;
+
     public static void main(String[] args) throws InterruptedException 
     {
         new Main();
@@ -14,30 +16,65 @@ public class Main {
     
     public Main() throws InterruptedException 
     {
-    	
-     	int frameWidth = 800;
-    	int frameHeight = 800;
         int dir = 0;//index of initial translation direction
         Random r = new Random();
-    	SimplePolygon[] sp = new SimplePolygon[25];
-    	Vector[] v = new Vector[8];//array of Vectors(Directions)
-    	
-    	v[0] = new Vector(0, -1);//north
-    	v[1] = new Vector(0, 1);//south
-    	v[2] = new Vector(1,0);//east
-    	v[3] = new Vector(-1,0);//west
-    	v[4] = new Vector(1,1);//
-    	v[5] = new Vector(1,-1);//
-    	v[6] = new Vector(-1,-1);//
-    	v[7] = new Vector(-1,1);//
- 
-    	
-        Point p = new Point(85, 200);
-        Point p1 = new Point(85, 217);
-        Point p2 = new Point(385, 217);
-        Point p3 = new Point(385, 200);
+    	SimplePolygon[] sp = makeObstacles();
+    	Vector[] compass = makeCompass();
 
-        sp = new SimplePolygon[] {
+        sp[0].setInteriorColor(Color.MAGENTA);
+        FrameDisplay frame = new FrameDisplay(800, 800, sp);
+	    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	    frame.setVisible(true);
+
+     
+    	while(true)
+    	{
+    		boolean intersection = false;
+    		Thread.sleep(1);
+    		for(int i = 0; i < sp[0].getNumberOfVertices(); i++)
+    		{
+    			sp[0].getVertex(i).translate(compass[dir]);
+    		}
+    		
+    		for(int i = 1; i < sp.length; i++) 
+    		{
+    			if(Algorithms.isThereAnIntersection(sp[0], sp[i]))
+    			{
+    				intersection = true;
+    				break;
+    			}
+    		}
+    		
+    		if(intersection)
+    		{
+    			for(int i = 0; i < sp[0].getNumberOfVertices(); i++)
+        		{
+        			sp[0].getVertex(i).translate(compass[dir].neg());
+        		}
+    			dir = (dir +  Math.abs(r.nextInt(8))) % compass.length;
+
+    		}
+    		 
+    		frame.repaint();
+    	}
+    	
+    }
+
+    public Vector[] makeCompass(){
+        return new Vector[]{
+                new Vector(0, -1),
+                new Vector(0, 1),
+                new Vector(1, 0),
+                new Vector(-1, 0),
+                new Vector(1, 1),
+                new Vector(1, -1),
+                new Vector(-1, -1),
+                new Vector(-1, 1)
+        };
+    }
+
+    public SimplePolygon[] makeObstacles(){
+        return new SimplePolygon[] {
                 new SimplePolygon(new Point[]{ //watchman
                         new Point(978/2, 962/2),
                         new Point(978/2, (962/2)+7),
@@ -182,98 +219,14 @@ public class Main {
                         new Point(218,610),
                         new Point(218,370),
                 }),
+                new SimplePolygon(new Point[]{ // left wall stick
+                        new Point(0,370),
+                        new Point(0,393),
+                        new Point(150,393),
+                        new Point(150,370),
+                }),
 
         };
-        sp[0].setInteriorColor(Color.RED);
-        FrameDisplay frame = new FrameDisplay(frameWidth, frameHeight, sp);
-	    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	    frame.setVisible(true);
-
-
-	    
-
-
-
-
-
-
-
-//
-//        p = new Point(367,285);
-//        p1 = new Point(367,392);
-//        p2 = new Point(385,392);
-//        p3 = new Point(385,285);
-//        sp[21] = new SimplePolygon();
-//        sp[21].addVertex(p);
-//        sp[21].addVertex(p1);
-//        sp[21].addVertex(p2);
-//        sp[21].addVertex(p3);
-//        //zig zag
-//
-//        p = new Point(200,370);
-//        p1 = new Point(200,392);
-//        p2 = new Point(385,392);
-//        p3 = new Point(385,370);
-//        sp[22] = new SimplePolygon();
-//        sp[22].addVertex(p);
-//        sp[22].addVertex(p1);
-//        sp[22].addVertex(p2);
-//        sp[22].addVertex(p3);
-//        //zig zag
-//
-//        p = new Point(200,370);
-//        p1 = new Point(200,610);
-//        p2 = new Point(218,610);
-//        p3 = new Point(218,370);
-//        sp[23] = new SimplePolygon();
-//        sp[23].addVertex(p);
-//        sp[23].addVertex(p1);
-//        sp[23].addVertex(p2);
-//        sp[23].addVertex(p3);
-//        //zig zag
-//
-//        p = new Point(0,370);
-//        p1 = new Point(0,393);
-//        p2 = new Point(150,393);
-//        p3 = new Point(150, 370);
-//        sp[24] = new SimplePolygon();
-//        sp[24].addVertex(p);
-//        sp[24].addVertex(p1);
-//        sp[24].addVertex(p2);
-//        sp[24].addVertex(p3);
-//        //left wall sticking out big
-     
-    	while(true)
-    	{
-    		boolean intersection = false;
-    		Thread.sleep(1);
-    		for(int i = 0; i < sp[0].getNumberOfVertices(); i++)
-    		{
-    			sp[0].getVertex(i).translate(v[dir]);
-    		}
-    		
-    		for(int i = 1; i < sp.length; i++) 
-    		{
-    			if(Algorithms.isThereAnIntersection(sp[0], sp[i]))
-    			{
-    				intersection = true;
-    				break;
-    			}
-    		}
-    		
-    		if(intersection)
-    		{
-    			for(int i = 0; i < sp[0].getNumberOfVertices(); i++)
-        		{
-        			sp[0].getVertex(i).translate(v[dir].neg()); 
-        		}
-    			dir = (dir +  Math.abs(r.nextInt(8))) % v.length;
-
-    		}
-    		 
-    		frame.repaint();
-    	}
-    	
     }
 	
 }
