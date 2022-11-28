@@ -7,57 +7,58 @@ import javax.swing.JFrame;
 
 public class Main {
 
-    private int dir;
+    private int direction = 0;
 
-    public static void main(String[] args) throws InterruptedException 
-    {
+    public static void main(String[] args) throws InterruptedException {
         new Main();
     }
     
     public Main() throws InterruptedException 
     {
-        int dir = 0;//index of initial translation direction
-        Random r = new Random();
-    	SimplePolygon[] sp = makeObstacles();
-    	Vector[] compass = makeCompass();
+    	SimplePolygon[] obstacles = makeObstacles();
 
-        sp[0].setInteriorColor(Color.MAGENTA);
-        FrameDisplay frame = new FrameDisplay(800, 800, sp);
+        obstacles[0].setInteriorColor(Color.MAGENTA);
+        FrameDisplay frame = new FrameDisplay(800, 800, obstacles);
 	    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	    frame.setVisible(true);
 
-     
-    	while(true)
-    	{
-    		boolean intersection = false;
-    		Thread.sleep(1);
-    		for(int i = 0; i < sp[0].getNumberOfVertices(); i++)
-    		{
-    			sp[0].getVertex(i).translate(compass[dir]);
-    		}
-    		
-    		for(int i = 1; i < sp.length; i++) 
-    		{
-    			if(Algorithms.isThereAnIntersection(sp[0], sp[i]))
-    			{
-    				intersection = true;
-    				break;
-    			}
-    		}
-    		
-    		if(intersection)
-    		{
-    			for(int i = 0; i < sp[0].getNumberOfVertices(); i++)
-        		{
-        			sp[0].getVertex(i).translate(compass[dir].neg());
-        		}
-    			dir = (dir +  Math.abs(r.nextInt(8))) % compass.length;
+        runWatchman(obstacles, frame);
+    }
 
-    		}
-    		 
-    		frame.repaint();
-    	}
-    	
+    public void runWatchman(SimplePolygon[] obstacles, FrameDisplay frame) throws InterruptedException {
+        Vector[] compass = makeCompass();
+        Random r = new Random();
+
+        while(true)
+        {
+            boolean intersection = false;
+            Thread.sleep(1);
+            for(int i = 0; i < obstacles[0].getNumberOfVertices(); i++)
+            {
+                obstacles[0].getVertex(i).translate(compass[direction]);
+            }
+
+            for(int i = 1; i < obstacles.length; i++)
+            {
+                if(Algorithms.isThereAnIntersection(obstacles[0], obstacles[i]))
+                {
+                    intersection = true;
+                    break;
+                }
+            }
+
+            if(intersection)
+            {
+                for(int i = 0; i < obstacles[0].getNumberOfVertices(); i++)
+                {
+                    obstacles[0].getVertex(i).translate(compass[direction].neg());
+                }
+                direction = (direction +  Math.abs(r.nextInt(8))) % compass.length;
+
+            }
+
+            frame.repaint();
+        }
     }
 
     public Vector[] makeCompass(){
@@ -224,6 +225,60 @@ public class Main {
                         new Point(0,393),
                         new Point(150,393),
                         new Point(150,370),
+                }),
+                new SimplePolygon(new Point[]{ // left wall stub 1
+                        new Point(0,457),
+                        new Point(0,480),
+                        new Point(85,480),
+                        new Point(85,457),
+                }),
+                new SimplePolygon(new Point[]{ // left wall stub 2
+                        new Point(0,630),
+                        new Point(0,653),
+                        new Point(85,653),
+                        new Point(85,630)
+                }),
+                new SimplePolygon(new Point[]{ // sickle
+                        new Point(568,457),
+                        new Point(568,479),
+                        new Point(716,479),
+                        new Point(716,457),
+                }),
+                new SimplePolygon(new Point[]{ // sickle
+                        new Point(700,457),
+                        new Point(700,695),
+                        new Point(718,695),
+                        new Point(718,457),
+                }),
+                new SimplePolygon(new Point[]{ // sickle
+                        new Point(568,675),
+                        new Point(568,695),
+                        new Point(718,695),
+                        new Point(718,675),
+                }),
+                new SimplePolygon(new Point[]{ // sickle
+                        new Point(568,675),
+                        new Point(568,800),
+                        new Point(585,800),
+                        new Point(585,675),
+                }),
+                new SimplePolygon(new Point[]{ // L with tooth
+                        new Point(135,457),
+                        new Point(135,696),
+                        new Point(150,696),
+                        new Point(150,457),
+                }),
+                new SimplePolygon(new Point[]{ // L with tooth
+                        new Point(85,545),
+                        new Point(85,565),
+                        new Point(150,565),
+                        new Point(150,545),
+                }),
+                new SimplePolygon(new Point[]{ // L with tooth
+                        new Point(135,675),
+                        new Point(135,695),
+                        new Point(450,695),
+                        new Point(450,675),
                 }),
 
         };
