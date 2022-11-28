@@ -6,28 +6,17 @@ public class Point extends GeometricObject{
 
 	    private double x;
 	    private double y;
-	    private int polyPointID;
 
-	    /**
+	/**
 	     * Instantiates a Point object with coordinates (0, 0) and parent's default
 	     * options.
 	     */
 	    public Point() 
 	    {
 	        x = y = 0; 
-	    } 
-	    
-	    public void setPolyPointID(int ID)
-	    {
-	    	polyPointID = ID;
-	    }
-	    
-	    public int getPolyPointID()
-	    {
-	    	return polyPointID;
 	    }
 
-	    /**
+	/**
 	     * Instantiates a Point object with coordinates (x, y) and parent's default
 	     * options.
 	     *
@@ -82,26 +71,7 @@ public class Point extends GeometricObject{
 	        return y;
 	    }
 
-	    /**
-	     * Rotates this point about the origin by the given angle.
-	     * 
-	     * @param angle given angle
-	     */
-	    public void rotate(double angle)
-	    {
-	        double angleRadians = Math.toRadians(angle);
-	        
-	        double sine = Math.sin(angleRadians);
-	        double cosine = Math.cos(angleRadians);
-	        
-	        double x1 = x*cosine - y*sine;
-	        double y1 = x*sine + y*cosine;
-	        
-	        x = x1;
-	        y = y1;
-	    }
-	    
-	    /**
+	/**
 	     * Sets the x-coordinate of this point.
 	     *
 	     * @param x x-coordinate

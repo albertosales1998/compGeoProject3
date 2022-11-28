@@ -14,11 +14,11 @@ import javax.swing.JPanel;
 
 public class GraphDisplay extends JPanel implements MouseMotionListener, MouseListener {
 
-    GeometricObject[] gArray; //geometric objects
-    private BufferedImage image; //background image
-    String description; //description of map element
-    Point begin; //initial point of the selection rectangle
-    Rectangle selectionRectangle; //rectangle that the user draws dynamically
+    GeometricObject[] gArray;
+    private BufferedImage image;
+    String description;
+    Point begin;
+    Rectangle selectionRectangle;
 
     /**
      * Parameterized constructor.
@@ -37,7 +37,7 @@ public class GraphDisplay extends JPanel implements MouseMotionListener, MouseLi
         } 
         catch (IOException ex)
         {
-            System.out.println("Image file not found!");
+            System.out.println("Image file not found, make sure to use absolute path.");
         }        
         
         description = "";
@@ -50,7 +50,7 @@ public class GraphDisplay extends JPanel implements MouseMotionListener, MouseLi
      * Continuously redefines the second corner of the selection rectangle 
      * as the user drags the mouse.
      * 
-     * @param e 
+     * @param e  event of mouse dragged
      */
     public void mouseDragged(MouseEvent e)
     {	
@@ -85,23 +85,8 @@ public class GraphDisplay extends JPanel implements MouseMotionListener, MouseLi
         //draws background image
         Dimension d = getSize();
         g.drawImage(image, 0, 0, d.width, d.height, this);
-        
-       /* 
-        //outputs description
-        g.setColor(new Color(64, 64, 64, 128));
-        g.fillRoundRect(29, 75, 150, 30, 5, 5);
-        g.setColor(Color.WHITE);
-        g.setFont(new Font("SansSerif", Font.BOLD, 12));
-        g.drawString(description, 35, 96);
-       
-     
-        //draws geometric objects
-        if (selectionRectangle != null) 
-            selectionRectangle.draw(g);
-        */
-       
-        
-     
+
+
         gArray[0].draw(g); //invokes object's draw method through polymorphism
             
         
@@ -117,7 +102,7 @@ public class GraphDisplay extends JPanel implements MouseMotionListener, MouseLi
     /**
      * The first corner of the selection rectangle is set in this method.
      * 
-     * @param e 
+     * @param e event of mouse pressed
      */
     @Override
     public void mousePressed(MouseEvent e)
@@ -130,8 +115,8 @@ public class GraphDisplay extends JPanel implements MouseMotionListener, MouseLi
      * The final value of the second corner of the selection rectangle is set
      * in this method (the first corner was set in mousePressed); range search
      * is then performed.
-     * 
-     * @param e 
+     *
+     * @param e  event of mouse release
      */
     @Override
     public void mouseReleased(MouseEvent e)

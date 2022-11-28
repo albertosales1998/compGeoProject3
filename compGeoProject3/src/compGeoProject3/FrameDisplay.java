@@ -4,8 +4,6 @@ import javax.swing.JFrame;
 
 public class FrameDisplay extends JFrame{
 
-    private GraphDisplay panel;
-
     /**
      * Creates an initializes the window frame.
      * 
@@ -15,11 +13,10 @@ public class FrameDisplay extends JFrame{
      */
     public FrameDisplay(int width, int height, GeometricObject[] g)
     {
-        setTitle("Super Mario Bro 8-Bit Map"); 
+        setTitle("8-Bit Maze");
         setSize(width, height);
-        //setResizable(false);  
- 
-        panel = new GraphDisplay(width, height, g);
+
+        GraphDisplay panel = new GraphDisplay(width, height, g);
         add(panel);
         pack(); //sizes the frame so that all its contents (panel in this case) 
         //are at or above their preferred sizes

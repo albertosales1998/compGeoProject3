@@ -3,8 +3,8 @@ package compGeoProject3;
 import java.awt.Graphics;
 
 public class LineSegment extends GeometricObject{
-	private Point begin;
-	private Point end;
+	private final Point begin;
+	private final Point end;
 	
 	public LineSegment(Point p, Point q)
 	{
@@ -36,7 +36,7 @@ public class LineSegment extends GeometricObject{
      * intersection if not analyzed and simply a value of 'COLLINEAR' is returned.
      *
      * @param ls given line segment to check intersection with
-     * @param p intersection point, if intersection point exists and it's unique
+     * @param p intersection point, if intersection point exists, and it's unique
      *          (if line segments are collinear and intersection is not empty,
      *           no point is returned); it must be instantiated in caller
      * @return -1: segments are not collinear and do not intersect, OR

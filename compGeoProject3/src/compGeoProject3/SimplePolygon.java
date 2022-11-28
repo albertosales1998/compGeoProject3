@@ -8,9 +8,8 @@ public class SimplePolygon extends GeometricObject{
     private Point[] vertexList;
     private int size;
     private int vertNumber;
-    private int data;
 
-    public SimplePolygon()
+	public SimplePolygon()
     {
     	size = 100;
         vertexList = new Point[size];
@@ -19,12 +18,12 @@ public class SimplePolygon extends GeometricObject{
     
     public SimplePolygon(Point[] vertices) {
     	this.vertexList = vertices;
-    	this.size = vertices.length;
+    	this.vertNumber = vertices.length;
     }
     
     public Point getVertex(int i)
     {
-    	Point v = new Point();
+    	Point v;
     	v = vertexList[i];
     	return v; 
     }
@@ -67,53 +66,7 @@ public class SimplePolygon extends GeometricObject{
 		vertexList[vertNumber] = v;
 		vertNumber++;
 	}
-	
-	public void setRecPolygonData(int d)
-	{
-		data = d;
-	}
-	
-	public int getRecPolygonData() 
-	{
-		return data;
-	}
-	
-	public double area()
-	{
-		if(vertNumber < 4)
-		{
-			return Double.NaN;
-		}
-		
-		double sum1 = 0.0;
-		double sum2 = 0.0;
-		Point v1;
-		Point v2;
-		
-		for(int i=0; i<vertNumber; i++)
-		{
-			v1 = vertexList[i];
-			v2 = vertexList[(i+1) % vertNumber];
-			sum1 += v1.getX() * v2.getY();
-			sum2 += v2.getX() * v1.getY();
-		}
-		double area = 0.5 * Math.abs(sum1 - sum2);
-		return area;
-	}
-	
-	public Rectangle boundingRectangle() 
-	{
-		double x1 = greatestX();
-		double y1 = smallestY();
-		double x2 = smallestX();
-		double y2 = greatestY();
-		Point p1 = new Point(x1,y1);
-		Point p2 = new Point(x2,y2);
-		 
-		Rectangle r =  new Rectangle(p1, p2);
-		return r;
-	}
-	
+
 	public int getNumberOfVertices()
 	{
 		return vertNumber;
@@ -149,13 +102,13 @@ public class SimplePolygon extends GeometricObject{
 	
 	public String toString()
 	{
-		String str = "POLY SIMPLE " + super.toString() + "\n";
+		StringBuilder str = new StringBuilder("POLY SIMPLE " + super.toString() + "\n");
 		for(int i = 0; i < vertNumber; i++)
 		{
-	        str += vertexList[i] + "\n";
+	        str.append(vertexList[i]).append("\n");
 		}
 
-	        return str;
+	        return str.toString();
 	}
 	
 	public double smallestX()
@@ -185,15 +138,7 @@ public class SimplePolygon extends GeometricObject{
 		}
 		return min;
 	}
-	
-	public void translate(Vector v)
-	{
-	  for(Point p: vertexList)
-	  {
-		  p.translate(v);
-	  }
-	}
-	
+
 	public boolean isPointInRecPolygon(Point p)
 	{
 		int j = 1;

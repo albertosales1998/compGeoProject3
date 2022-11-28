@@ -5,19 +5,13 @@ import java.awt.Graphics;
 
 public abstract class GeometricObject {
 
-    private Color boundaryColor;        //boundary color
-    private Color interiorColor;        //interior color
+    private Color boundaryColor;
+    private Color interiorColor;
 
     public GeometricObject()
     {
         interiorColor = Color.white;
         boundaryColor = Color.black;
-    }
-
-    public GeometricObject(Color iC, Color bC) 
-    {
-        interiorColor = iC;
-        boundaryColor = bC;
     }
 
     abstract public void draw(Graphics g);
@@ -32,11 +26,6 @@ public abstract class GeometricObject {
         return interiorColor;
     }
 
-    public void setBoundaryColor(Color boundaryColor)
-    {
-        this.boundaryColor = boundaryColor;
-    }
-    
     public void setInteriorColor(Color interiorColor)
     {
         this.interiorColor = interiorColor;
