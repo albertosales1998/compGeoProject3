@@ -2,9 +2,12 @@ package compGeoProject3;
 
 import java.awt.Color;
 import java.util.Random;
-
 import javax.swing.JFrame;
 
+/**
+ * Author: Alberto Sales, Anthony Serrano
+ * PID's: 6053920, 3607674
+ */
 public class Main {
 
     private int direction = 0;
@@ -34,27 +37,21 @@ public class Main {
             boolean intersection = false;
             Thread.sleep(1);
             for(int i = 0; i < obstacles[0].getNumberOfVertices(); i++)
-            {
                 obstacles[0].getVertex(i).translate(compass[direction]);
-            }
 
             for(int i = 1; i < obstacles.length; i++)
-            {
                 if(Algorithms.isThereAnIntersection(obstacles[0], obstacles[i]))
                 {
                     intersection = true;
                     break;
                 }
-            }
 
             if(intersection)
             {
                 for(int i = 0; i < obstacles[0].getNumberOfVertices(); i++)
-                {
                     obstacles[0].getVertex(i).translate(compass[direction].neg());
-                }
-                direction = (direction +  Math.abs(r.nextInt(8))) % compass.length;
 
+                direction = (direction +  Math.abs(r.nextInt(8))) % compass.length;
             }
 
             frame.repaint();
@@ -280,8 +277,6 @@ public class Main {
                         new Point(450,695),
                         new Point(450,675),
                 }),
-
         };
     }
-	
 }

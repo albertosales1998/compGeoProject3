@@ -3,9 +3,13 @@ package compGeoProject3;
 import java.awt.Color;
 import java.awt.Graphics;
 
+/**
+ * Author: Alberto Sales, Anthony Serrano
+ * PID's: 6053920, 3607674
+ */
 public abstract class GeometricObject {
 
-    private Color boundaryColor;
+    private final Color boundaryColor;
     private Color interiorColor;
 
     public GeometricObject()

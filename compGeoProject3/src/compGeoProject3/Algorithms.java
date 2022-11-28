@@ -1,25 +1,17 @@
 package compGeoProject3;
 
+/**
+ * Author: Alberto Sales, Anthony Serrano
+ * PID's: 6053920, 3607674
+ */
 public class Algorithms {
 
-    public static boolean isThereAnIntersection(SimplePolygon pol1, SimplePolygon pol2)
+    public static boolean isThereAnIntersection(SimplePolygon polygon1, SimplePolygon polygon2)
     {
-    	LineSegment[] edges1 = pol1.getEdges();
-    	LineSegment[] edges2 = pol2.getEdges();
-    	
-    	for(int i = 0; i < pol1.getNumberOfVertices(); i++)
-    	{
-    		LineSegment e1 = edges1[i];
-    		for(int j = 0; j < pol2.getNumberOfVertices(); j++)
-    		{
-    			LineSegment e2 = edges2[j];
-    			Point p = new Point();
-    			if (e1.intersect(e2, p) == 1)
-    			{
+    	for(int i = 0; i < polygon1.getNumberOfVertices(); i++)
+			for(int j = 0; j < polygon2.getNumberOfVertices(); j++)
+				if (polygon1.getEdges()[i].intersect(polygon2.getEdges()[j], new Point()) == 1)
     				return true;
-    			}
-    		}
-    	}
     	return false;
     }
 
